@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/01 18:04:07 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/01 18:33:30 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include "libft.h"
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*lastone;
 
-#endif
+	if (*lst)
+	{
+		lastone = ft_lstlast(*lst);
+		lastone->next = new;
+	}
+	else
+		*lst = new;
+}

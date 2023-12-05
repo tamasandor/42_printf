@@ -1,23 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/11/29 17:15:27 by atamas            #+#    #+#             */
+/*   Updated: 2023/11/29 17:50:16 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include "libft.h"
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", fd);
+	}
+	else
+	{
+		if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			n = n * (-1);
+		}
+		if (n > 9)
+		{
+			ft_putnbr_fd((n / 10), fd);
+			n = n % 10;
+		}
+		if (n < 10)
+		{
+			ft_putchar_fd((n + '0'), fd);
+		}
+	}
+}
 
-#endif
+/* int		main(void)
+{
+	ft_putnbr_fd(-5, 1);
+} */

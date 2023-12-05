@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/01 19:57:39 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/01 20:35:27 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include "libft.h"
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*newone;
+	t_list	*temp;
+	void	*cont;
 
-#endif
+	newone = NULL;
+	while (lst)
+	{
+		cont = f(lst->content);
+		temp = ft_lstnew(cont);
+		if (!temp)
+		{
+			del(cont);
+			ft_lstclear(&newone, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&newone, temp);
+		lst = lst->next;
+	}
+	lst = NULL;
+	return (newone);
+}

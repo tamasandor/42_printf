@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/11/13 19:55:11 by atamas            #+#    #+#             */
+/*   Updated: 2023/11/28 14:32:42 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+char	*ft_strrchr(const char *string, int c)
+{
+	int		i;
+	char	ch;
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
-
-#endif
+	i = 0;
+	ch = (char) c;
+	while (string[i] != '\0')
+	{
+		i++;
+	}
+	if (ch == '\0')
+		return ((char *)string + i);
+	while (i >= 0)
+	{
+		if (string[i] == ch)
+		{
+			return ((char *)string + i);
+		}
+		i--;
+	}
+	return (0);
+}

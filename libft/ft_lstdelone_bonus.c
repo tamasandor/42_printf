@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/01 18:35:22 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/01 18:46:16 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include "libft.h"
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
-
-#endif
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	del(lst -> content);
+	free(lst);
+}

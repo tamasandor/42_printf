@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   print_char_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/05 14:00:52 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/05 14:13:47 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include <unistd.h>
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+int	print_str(char *c)
+{
+	int	len;
 
-#endif
+	len = 0;
+	if (!c)
+		return (-1);
+	while (c[len])
+	{
+		write(1, &c[len], 1);
+		len++;
+	}
+	return (len);
+}
+
+int	print_char(char c)
+{
+	int	len;
+
+	len = write(1, &c, 1);
+	return (len);
+}

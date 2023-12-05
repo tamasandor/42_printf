@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:46 by atamas           ###   ########.fr       */
+/*   Created: 2023/11/25 23:35:40 by atamas            #+#    #+#             */
+/*   Updated: 2023/11/25 23:49:01 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
+#include <unistd.h>
 
-int	print_str(char *c);
-int	print_char(char c);
-void	ptr_address(char *ptr);
-int	ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+/* 
+Outputs the character 'c' to the given file descriptor
+ */
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
-#endif
+/* int	main(void)
+{
+	char	test_char;
+	int		test_fd;
+
+	test_char = 'J';
+	test_fd = 1;
+	write(test_fd, "Before: ", 8);
+	write(test_fd, &test_char, 1);
+	write(test_fd, "\n", 1);
+	ft_putchar_fd(test_char, test_fd);
+	write(test_fd, "\n", 1);
+} */
