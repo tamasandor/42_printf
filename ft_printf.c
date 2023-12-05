@@ -6,7 +6,7 @@
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 18:23:50 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 16:57:26 by atamas           ###   ########.fr       */
+/*   Updated: 2023/12/05 18:23:25 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@
 
 static int	handler(char font, va_list args)
 {
-	int	i;
+	int		i;
 	char	*ptr;
 
 	i = 0;
 	if (font == 'c')
-	{
 		i += print_char(va_arg(args, int));
-	}
 	if (font == 's')
-	{
 		i += print_str(va_arg(args, char *));
-	}
 	if (font == '%')
 		i += print_char('%');
 	if (font == 'd' || font == 'i')
@@ -73,9 +69,7 @@ int	ft_printf(const char *string, ...)
 				len += temp;
 		}
 		else
-		{
 			len += write(1, string, 1);
-		}
 		string++;
 	}
 	va_end(args);
