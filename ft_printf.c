@@ -5,94 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 18:23:50 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 18:23:25 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/06 14:58:49 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/08 13:58:04 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <unistd.h>
 #include "ft_printf.h"
+#include <stdarg.h>
+#include <stdio.h>
 
-static int	handler(char font, va_list args)
+void	ft_operation(t_parser *parser, va_list args)
 {
-	int		i;
-	char	*ptr;
-
-	i = 0;
-	if (font == 'c')
-		i += print_char(va_arg(args, int));
-	if (font == 's')
-		i += print_str(va_arg(args, char *));
-	if (font == '%')
-		i += print_char('%');
-	if (font == 'd' || font == 'i')
+	if (parser->flag == '%')
+		ft_printchr(parser, '%');
+	if (parser->flag == 'c')
+		ft_printchr(parser, va_arg(args, int));
+	if (parser->flag == 's')
+		ft_printstr(parser, va_arg(args, char *));
+	if (parser->flag == 'd' || parser->flag == 'i')
 	{
-		ptr = ft_itoa(va_arg(args, int));
-		i += print_str(ptr);
-		free(ptr);
+		parser->ptr = ft_itoa(va_arg(args, int));
+		ft_printstr(parser, parser->ptr);
+		free(parser->ptr);
 	}
-	if (font == 'u')
+	if (parser->flag == 'x' || parser->flag == 'X' || parser->flag == 'u')
 	{
-		ptr = utoa(va_arg(args, unsigned int));
-		i += print_str(ptr);
-		free(ptr);
+		parser->forhexa = va_arg(args, unsigned int);
+		ft_conversion_handler(parser);
 	}
-/* 	if (font == 'p')
+	if (parser->flag == 'p')
 	{
-		ptr = va_arg(args, char *);
-		char *address;
-		address = ptr;
-		i += print_str(address);
-	} */
-	return (i);
+		parser->forpointer = va_arg(args, unsigned long long);
+		ft_conversion_handler(parser);
+	}
 }
 
-int	ft_printf(const char *string, ...)
+int	ft_printf(const char *str, ...)
 {
-	va_list	args;
-	int		len;
-	int		temp;
+	va_list		argument;
+	t_parser	parser;
 
-	len = 0;
-	temp = 0;
-	va_start(args, string);
-	while (*string)
+	parser.len = 0;
+	va_start(argument, str);
+	if (str == NULL)
+		return (0);
+	while (*str)
 	{
-		if (*string == '%')
+		if (*str == '%')
 		{
-			string++;
-			temp = handler(*string, args);
-			if (temp < 0)
-				len += print_str("(null)");
-			else
-				len += temp;
+			parser.flag = *(++str);
+			ft_operation(&parser, argument);
 		}
 		else
-			len += write(1, string, 1);
-		string++;
+			ft_printchr(&parser, *str);
+		str++;
 	}
-	va_end(args);
-	return (len);
+	va_end(argument);
+	return (parser.len);
 }
 
 /* int	main(void)
 {
-	int	length = ft_printf("Alma %s, %c", "Please work", 'c');
-	printf("\n%d\n", length);
+	ft_printf(" %%");
 } */
-/* 
-cspdiuxX%
- */
-
-/* 
-•%c Prints a single character.
-•%s Prints a string (as defined by the common C convention).
-•%p The void * pointer argument has to be printed in hexadecimal format.
-•%d Prints a decimal (base 10) number.
-•%i Prints an integer in base 10.
-•%u Prints an unsigned decimal (base 10) number.
-•%x Prints a number in hexadecimal (base 16) lowercase format.
-•%X Prints a number in hexadecimal (base 16) uppercase format.
-•%% Prints a percent sign.
- */

@@ -1,11 +1,8 @@
 NAME = libftprintf.a
-
 CC = cc
-
 FLAGS = -Wall -Werror -Wextra
-
-SRC = ft_printf.c print_char_str.c utoa.c
 AR = ar -rcs
+SRC = ft_print.c ft_printf.c ft_conversions.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -21,9 +18,8 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	make fclean -C ./libft
 	rm -f $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
 
 .PHONY: all clean fclean re

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamas <atamas@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:02:16 by atamas            #+#    #+#             */
-/*   Updated: 2023/12/05 18:22:40 by atamas           ###   ########.fr       */
+/*   Created: 2023/12/06 15:00:21 by atamas            #+#    #+#             */
+/*   Updated: 2023/12/08 13:56:48 by atamas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 # define FT_PRINTF_H
 # include "libft/libft.h"
 
-int		print_str(char *c);
-int		print_char(char c);
-void	ptr_address(char *ptr);
-int		ft_printf(const char *string, ...);
-char	*utoa(unsigned int number);
+typedef struct s_parser
+{
+	char				flag;
+	int					len;
+	char				*ptr;
+	char				buffer[32];
+	char				upper_lower;
+	unsigned int		forhexa;
+	unsigned long long	forpointer;
+}			t_parser;
+
+int		ft_printf(const char *str, ...);
+void	ft_printchr(t_parser *parser, char str);
+void	ft_printstr(t_parser *parser, char *str);
+void	ft_conversion_handler(t_parser *parser);
 
 #endif
