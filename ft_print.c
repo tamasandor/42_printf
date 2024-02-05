@@ -19,7 +19,7 @@ void	ft_buffer_zero(t_parser *parser)
 
 	i = 0;
 	while (parser->buffer[i] != '\0')
-		parser->buffer[i] = '\0';
+		parser->buffer[i++] = '\0';
 }
 
 void	ft_printchr(t_parser *parser, char chr)
